@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 
 /firebase.ts
-*firebase
+*firebase*
+/src/routes/firebase.ts
