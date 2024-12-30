@@ -4,8 +4,11 @@ import Home from "./routes/home";
 import Profile from "./routes/profile";
 import CreateAccount from "./routes/create-account";
 import Login from "./routes/login";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { useEffect, useState } from "preact/hooks";
+import LoadingScreen from "./components/loading-screen";
+import { auth } from "./routes/firebase";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +38,7 @@ const router = createBrowserRouter([
 const GlobalStyles = createGlobalStyle`
 ${reset};
 *{
-  box-sizing: boarder-box
+  box-sizing: border-box
 }
   body {
     background-color: black;
@@ -46,12 +49,27 @@ ${reset};
   }
 `;
 
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-contect: center;
+`;
+
 function App() {
+  const [isLoading, setLoading] = useState(true);
+  const init = async () => {
+    await auth.authStateReady();
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
   return (
-    <>
-      <GlobalStyles></GlobalStyles>
-      <RouterProvider router={router} />
-    </>
+    <Wrapper>
+      <GlobalStyles />
+      {isLoading ? <LoadingScreen /> : <RouterProvider router={router} />}
+    </Wrapper>
   );
 }
 
