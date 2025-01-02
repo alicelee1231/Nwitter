@@ -9,11 +9,16 @@ import reset from "styled-reset";
 import { useEffect, useState } from "preact/hooks";
 import LoadingScreen from "./components/loading-screen";
 import { auth } from "./routes/firebase";
+import ProtectedRoute from "./components/protected-router";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: (
+      <ProtectedRoute>
+        <Layout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "",
