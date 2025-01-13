@@ -15,13 +15,13 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <ProtectedRoute>
-        <Layout />
-      </ProtectedRoute>
+      // <ProtectedRoute>
+      <Layout />
+      // </ProtectedRoute>
     ),
     children: [
       {
-        path: "",
+        path: "/home",
         element: <Home />,
       },
       {
@@ -41,23 +41,21 @@ const router = createBrowserRouter([
 ]);
 
 const GlobalStyles = createGlobalStyle`
-${reset};
-*{
-  box-sizing: border-box
-}
+  ${reset};
+  * {
+    box-sizing: border-box;
+  }
   body {
     background-color: black;
     color:white;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
-    sans-serif;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 `;
 
 const Wrapper = styled.div`
   height: 100vh;
   display: flex;
-  justify-contect: center;
+  justify-content: center;
 `;
 
 function App() {
@@ -66,7 +64,6 @@ function App() {
     await auth.authStateReady();
     setLoading(false);
   };
-
   useEffect(() => {
     init();
   }, []);
